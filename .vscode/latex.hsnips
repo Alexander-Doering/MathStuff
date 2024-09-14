@@ -1,0 +1,201 @@
+snippet `table([1-9]{1})([1-9]{1})` "Table environment" 
+\begin{table}[H]
+	\centering
+	\begin{tabular}{``
+	let len = m[2];
+	let results = "";
+	for(var i=0; i<len-1; i++){
+		results += "c|"
+	}
+	results += "c";
+	rv = results;
+	``}
+	    \toprule
+			``
+			let order = 1;
+			nrow = m[1];
+			ncol = m[2];
+			for (var i=0; i<nrow-1; i++){
+				for(var j = 0;j <ncol-1;j++){
+					rv += `${snip.tabstop(order+3)} & `;
+					order ++;
+				}	
+				rv += ` ${snip.tabstop(order+3)} \\\\`+ `\\`+ `\n`;
+				order ++;
+				if(i == 0){
+					rv += `		\\midrule` + `\n`;
+				}
+				rv += `			`;
+			}	
+			for(var j = 0;j <ncol-1;j++){
+				rv += `${snip.tabstop(order+3)} & `;
+				order ++;
+			}
+			rv += ` ${snip.tabstop(order+3)} \\\\` + `\\`;
+			``
+    	\bottomrule
+	\end{tabular}
+	\caption{${2:caption}}
+	\label{tab:${3:label}}
+\end{table}
+endsnippet
+
+snippet // "Fraction simple" A
+\frac{$1}{$2}$0 
+endsnippet
+
+snippet `\b([a-zA-Z])bar\b` "bar" A
+``rv = '\\bar{' + m[1] + '}'``
+endsnippet
+
+snippet `\b(brace)\b` "curly braces" A
+\\{ $1 \\}
+endsnippet
+
+snippet `\b([a-zA-Z])-hat\b` "hat" A
+``rv = '\\hat{' + m[1] + '}'``
+endsnippet
+
+snippet `\b([a-zA-Z])frak\b` "frak" A
+``rv = '\\mathfrak{' + m[1] + '}'``
+endsnippet
+
+snippet `\b([a-zA-Z])cal\b` "cal" A
+``rv = '\\mathcal{' + m[1] + '}'``
+endsnippet
+
+snippet `\b([A-Z])bb\b` "bb" A
+``rv = '\\mathbb{' + m[1] + '}'``
+endsnippet
+
+snippet `\b([A-Z0-9])ds\b` "ds" A
+``rv = '\\mathds{' + m[1] + '}'``
+endsnippet
+
+snippet `\b(mas)\b` "inline math" A
+\$ $1 \$ 
+endsnippet
+
+snippet `\b(kurs)\b` "kursiv" A
+\textit{$1}
+endsnippet
+
+snippet `\b(mal)\b` "math mode" A
+\\[
+	$1
+.\\]
+endsnippet
+
+snippet `(?<![\\a-zA-Z])([a-zA-Z])\1{1}(?![a-zA-Z])` "greek letters" A
+``transliteration = {"a": "\\alpha", "b": "\\beta", "g": "\\gamma", "G": "\\Gamma", "d": "\\delta", "D": "\\Delta", "e": "\\epsilon", "E": "\\varepsilon", "z": "\\zeta", "h": "\\eta", "t": "\\theta", "T": "\\Theta", "k": "\\kappa", "i": "\\iota", "l": "\\lambda", "L": "\\Lambda", "m": "\\mu", "n": "\\nu", "x": "\\xi", "X": "\\Xi", "p": "\\pi", "P": "\\Pi", "r": "\\rho", "s": "\\sigma", "S": "\\Sigma", "o": "\\omega", "O": "\\Omega", "c": "\\chi", "f": "\\phi", "F": "\\Phi", "y": "\\upsilon", "Y": "\\Upsilon", "v": "\\psi", "V": "\\Psi", "u": "\\tau" };
+rv = (transliteration[m[1]] || (m[1] + m[1]))``
+endsnippet
+
+snippet `\b(dfn)\b` "Definition" A
+\begin{Def}
+	$1
+\end{Def}
+endsnippet
+
+snippet `\b(thm)\b` "Theorem" A
+\begin{Sa}
+	$1
+\end{Sa}
+endsnippet
+
+snippet `\b(itemize)\b` "Aufzählung" A
+\begin{itemize}
+	\item $1
+\end{itemize}
+endsnippet
+
+snippet `\b(agn)\b` "align" A
+\begin{align*}
+	$1
+\end{align*}
+endsnippet
+
+snippet -> "to" A
+``rv = '\\to'``
+endsnippet
+
+snippet !> "mapsto" A
+``rv = '\\mapsto'``
+endsnippet
+
+snippet @@ "infinity" A
+``rv = '\\infty'``
+endsnippet
+
+snippet `([a-zA-Z0-9])td` "exponentiation" A
+``rv = m[1] + '^{$1}'``
+endsnippet
+
+snippet `=>` "implies" A
+`` rv = '\\Rightarrow' ``
+endsnippet
+
+snippet `=<` "implied by" A
+``rv = '\\Leftarrow'``
+endsnippet
+
+snippet `==` "equals" A
+``rv = '&= $1 \\\\\\'``
+endsnippet
+
+snippet `<=` "leq" A
+``rv = '\\leq'``
+endsnippet
+
+snippet `>=` "geq" A
+``rv = '\\geq'``
+endsnippet
+
+snippet `\b(d)([a-zA-Z0-9])([a-zA-Z0-9]+)(d)\b` "down" A
+``rv = '{'+m[2]+'}_{'+m[3]+'}'``
+endsnippet
+
+snippet `\b(u)([a-zA-Z0-9])(u)([a-zA-Z0-9]+)(u)\b` "down" A
+``rv = '{'+m[2]+'}^{'+m[4]+'}'``
+endsnippet
+
+snippet `\b(emn)\b` "element" A
+\in
+endsnippet
+
+snippet `\b(pkt)\b` "malpunkt" A
+\cdot
+endsnippet 
+
+snippet `\b(fral)\b` "alle" A
+\forall
+endsnippet 
+
+snippet `\b(hld)\b` "gilt" A
+\colon
+endsnippet 
+
+snippet `\b(tns)\b` "tensor" A
+\otimes
+endsnippet 
+
+snippet `\b(cic)\b` "circle" A
+\circ
+endsnippet 
+
+snippet `\b(txr)\b` "textrm" A
+\textrm{$1}
+endsnippet 
+
+snippet `vec([1-9])` "column vector" A
+``rv = '\\begin{pmatrix}'``
+``count=2;
+msg = '1';
+for (i = 1; i < parseInt(m[1],10); i++) {
+  msg += ' \\\\\\ \n'+ count +'';
+  count++;
+}
+rv = msg;
+``
+\\end{pmatrix}
+endsnippet
