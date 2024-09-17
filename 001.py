@@ -51,6 +51,7 @@ def Connector(Dictionary):
 def functionRelation(p1,p2,p3):
     dx = p1[0]-p2[0]
     dy = p1[1]-p2[1]
+    #Straight Line Check
     if dx != 0 and dy != 0:
         b = -(dy/dx * p1[0] - p1[1])
         fy = dy/dx * p3[0] + b
@@ -93,18 +94,16 @@ def functionRelation(p1,p2,p3):
     p1q = CoordinateQuarter(p1[0]-mx, p1[1]-my)
     p2q = CoordinateQuarter(p2[0]-mx, p2[1]-my)
     if ((p1q == 1 and p2q == 3) or (p1q == 2 and p2q == 4)):
-        mod = 1
+        return(rel)
     elif ((p1q == 3 and p2q == 1) or (p1q == 4 and p2q == 2)):
-        mod = -1
+        return(rel*-1)
     else:
-        mod = 0
         print(" Coord System Error, you done fucked up")
         print(p1,p2)
         print(mx,my)
         print((p1[0]-mx, p1[1]-my),(p2[0]-mx, p2[1]-my))
         print(p1q,p2q)
         exit(3)
-    return (rel*mod)
    
 def RelationGenerator(Dictionary):
     rellist=dict()
@@ -116,15 +115,16 @@ def RelationGenerator(Dictionary):
                 for c in Dictionary:
                     if a == c or b == c:
                         continue
-                    print(a,b,c)
                     val=functionRelation(Dictionary[a],Dictionary[b],Dictionary[c])
                     rellist[a,b,c]=val
     return rellist
+
 PList=PointPlotter(PointInput)
 Connector(PList)
 RList=RelationGenerator(PList)
 #print("Ergebnis:")
 #print(RList)
+#TODO: Generate Tables for each Point {P_n:(a:(-1),b:(0),c:(1))}
 print("Menge an ergebnissen:", len(RList) )
 timeend=time.time()
 print(timeend-timestart)
